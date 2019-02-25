@@ -24,21 +24,30 @@ router.get('/', (req, res, next) => {
 });
 
 //  GET the Book Details page in order to add a new Book
-router.get('/add', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
-
+router.get('/addbook', (req, res, next) => {
+    res.render("books/addbook",{title:"Add a New Book"});
 });
 
 // POST process the Book Details page and create a new Book - CREATE
-router.post('/add', (req, res, next) => {
+router.post('/addbook', (req, res, next) => {
+  let newbook = book({
+    "Title":req.body.title,
+    "Discription":req.body.discription,
+    "Price":req.body.price,
+    "Author":req.body.author,
+    "Genre":req.body.genre
+});
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
-
+book.create(newbook, (err, contact) => {
+    if(err) {
+        console.log(err);
+        res.end(err);
+    } 
+    else {
+        // takes the user back to the contact-list page
+        res.redirect('/books');
+    }
+});
 });
 
 // GET the Book Details page in order to edit an existing Book
