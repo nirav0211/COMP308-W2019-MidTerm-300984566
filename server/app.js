@@ -5,6 +5,14 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+
+// modules for authentication
+let session = require('express-session');
+let passport = require('passport');
+let passportLocal = require('passport-local');
+let localStrategy = passportLocal.Strategy;
+let flash = require('connect-flash'); 
+
 // import "mongoose" - required for DB Access
 let mongoose = require('mongoose');
 // URI
@@ -15,7 +23,7 @@ mongoose.connect(process.env.URI || config.URI, { useNewUrlParser: true });
 let mongoDB = mongoose.connection;
 mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
 mongoDB.once('open', ()=> {
-  console.log("Connected to MongoDB...");
+console.log("Connected to MongoDB...");
 });
 
 
